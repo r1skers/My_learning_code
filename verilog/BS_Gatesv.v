@@ -3,7 +3,7 @@
 //out_any: Each bit of this output vector should indicate whether any of the corresponding input bit and its neighbour to the right are '1'. For example, out_any[2] should indicate if either in[2] or in[1] are 1. Since in[0] has no neighbour to the right, the answer is obvious so we don't need to know out_any[0].
 //out_different: Each bit of this output vector should indicate whether the corresponding input bit is different from its neighbour to the left. For example, out_different[2] should indicate if in[2] is different from in[3]. For this part, treat the vector as wrapping around, so in[3]'s neighbour to the left is in[0].
 
-//最初は
+//最初は(at first)
 module top_module( 
     input [3:0] in,
     output reg [2:0] out_both,      // 注意：只需要 3 位
@@ -33,7 +33,7 @@ module top_module(
 endmodule
 
 
-//もう少し理解やすいのは
+//もう少し理解やすいのは(easier)
 module top_module( 
     input  [3:0] in,
     output [2:0] out_both,      // bits [2:0]
@@ -72,7 +72,7 @@ module top_module(
 endmodule
 
 
-//最も簡単なのは
+//最も簡単なのは(easiest)
 module top_module (
 	input [3:0] in,
 	output [2:0] out_both,
