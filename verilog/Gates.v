@@ -10,5 +10,5 @@ module Gates(
     //assign out=~(in1|in2);->NOR(或非门)
     //assign out=in1^in2;---->XOR(异或门)
     //assign out=~(in1&in2);->NAND(与非门)
-    
+    //assign out=~(in1^in2);->XNOR(同或门)
 endmodule
