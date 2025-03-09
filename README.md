@@ -3,3 +3,4 @@
 
 
 Thank you!-------->https://hdlbits.01xz.net/
+          -------->Termux
