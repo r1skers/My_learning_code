@@ -12,4 +12,4 @@ In k-map<br>
 
 
 Veriable-Length Encoding<br>
-哈夫曼编码(Huffman Coding,ハフマン符号),
+哈夫曼编码(Huffman Coding,ハフマン符号),use'0' and '1'to describe high and low probable choices.And finally will get a tree.
