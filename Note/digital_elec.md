@@ -38,7 +38,7 @@ De'Morgan's Law<br>
 德摩根定理(ド・モルガンの法則)
 | **形式**         | **布尔表达式**                                                                 |
 |------------------|------------------------------------------------------------------------------|
-| **基本形式**     | \( \overline{A + B} = \overline{A} \cdot \overline{B} \)                     |
+| **基本形式**     | \( (A + B)' = A' • B' \)                     |
 |                  | \( \overline{A \cdot B} = \overline{A} + \overline{B} \)                     |
 | **逻辑门形式**   | **与非门（NAND）**：\( \overline{A \cdot B} = \overline{A} + \overline{B} \) |
 |                  | **或非门（NOR）**：\( \overline{A + B} = \overline{A} \cdot \overline{B} \)  |
