@@ -3,7 +3,7 @@ TsingHua University--Digital Electronic Class From Wang Hong
 Grey Code <br>
 格雷码(グレイコード),a kind of arranging method,one's binary code is different with last one's (only one number)
 
-| 十进制 | 二进制 | 格雷码 |
+| Decimal | Binary | Gray |
 |--------|--------|--------|
 | 0      | 0000   | 0000   |
 | 1      | 0001   | 0001   |
