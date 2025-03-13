@@ -40,7 +40,5 @@ De'Morgan's Law<br>
 |------------------|------------------------------------------------------------------------------|
 | **基本形式**     | \( \overline{A + B} = \overline{A} \cdot \overline{B} \)                     |
 |                  | \( \overline{A \cdot B} = \overline{A} + \overline{B} \)                     |
-| **推广形式**     | \( \overline{A + B + C + \dots} = \overline{A} \cdot \overline{B} \cdot \overline{C} \cdot \dots \) |
-|                  | \( \overline{A \cdot B \cdot C \cdot \dots} = \overline{A} + \overline{B} + \overline{C} + \dots \) |
 | **逻辑门形式**   | **与非门（NAND）**：\( \overline{A \cdot B} = \overline{A} + \overline{B} \) |
 |                  | **或非门（NOR）**：\( \overline{A + B} = \overline{A} \cdot \overline{B} \)  |
