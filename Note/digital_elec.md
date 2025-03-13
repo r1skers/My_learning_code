@@ -1,4 +1,4 @@
-TsingHua University--Digital Electronic Class From Wang Hong 
+h TsingHua University--Digital Electronic Class From Wang Hong 
 
 Grey Code <br>
 格雷码(グレイコード),a kind of arranging method,one's binary code is different with last one's (only one number)
@@ -32,3 +32,9 @@ Veriable-Length Encoding<br>
 | **结合律**       | \( A + (B + C) = (A + B) + C \)                                           |
 |                  | \( A • (B • C) = (A • B) • C \)                           |
 | **分配律**       | \( A • (B + C) = A • B + A • C \)                             |
+
+
+De'Morgan's Law<br>
+德摩根定理(ド・モルガンの法則)
+| **德摩根定律**   | \( \overline{A + B} = \overline{A} \cdot \overline{B} \)                  |
+|                  | \( \overline{A \cdot B} = \overline{A} + \overline{B} \)                  |
