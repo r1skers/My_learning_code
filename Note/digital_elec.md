@@ -32,15 +32,3 @@ Veriable-Length Encoding<br>
 | **结合律**       | \( A + (B + C) = (A + B) + C \)                                           |
 |                  | \( A \cdot (B \cdot C) = (A \cdot B) \cdot C \)                           |
 | **分配律**       | \( A \cdot (B + C) = A \cdot B + A \cdot C \)                             |
-|                  | \( A + (B \cdot C) = (A + B) \cdot (A + C) \)                             |
-| **德摩根定律**   | \( \overline{A + B} = \overline{A} \cdot \overline{B} \)                  |
-|                  | \( \overline{A \cdot B} = \overline{A} + \overline{B} \)                  |
-| **吸收律**       | \( A + (A \cdot B) = A \)                                                 |
-|                  | \( A \cdot (A + B) = A \)                                                 |
-| **冗余律**       | \( A + (\overline{A} \cdot B) = A + B \)                                  |
-|                  | \( A \cdot (\overline{A} + B) = A \cdot B \)                              |
-| **异或和同或**   | \( A \oplus B = \overline{A}B + A\overline{B} \)                          |
-|                  | \( A \odot B = \overline{A} \cdot \overline{B} + A \cdot B \)             |
-| **扩展分配律**   | \( A + \overline{A}B = A + B \)                                           |
-|                  | \( A(\overline{A} + B) = AB \)                                            |
-| **对偶性**       | 将`+`和`·`互换，`0`和`1`互换，可得到对偶恒等式                             |
