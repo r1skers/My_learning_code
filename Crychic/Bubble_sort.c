@@ -1,16 +1,20 @@
-//è¾“å…¥äº”ä¸ªæ•°å­—ï¼Œå†’æ³¡æ’åº
 #include<stdio.h>
 int main() {
     int a[5];
-    printf("è¾“å…¥5ä¸ªæ•°å­—: ");
+    printf("input 5 numbers: ");  // ÊäÈëÌáÊ¾²»»»ĞĞ
+    
+    // ¶ÁÈ¡ÊäÈë²¢ÑéÖ¤
     for(int i=0; i<5; i++) {
-        scanf("%d", &a[i]);
+        if (scanf("%d", &a[i]) != 1) {
+            printf("Error: Invalid input!\n");
+            return 1;
+        }
     }
     
-    // å†’æ³¡æ’åº
+    // Ã°ÅİÅÅĞò£¨½µĞò£©
     for(int i=0; i<4; i++) {
         for(int j=0; j<4-i; j++) {
-            if(a[j] < a[j+1]) { // é™åºæ’åº
+            if(a[j] < a[j+1]) { 
                 int temp = a[j];
                 a[j] = a[j+1];
                 a[j+1] = temp;
@@ -18,8 +22,8 @@ int main() {
         }
     }
     
-    // è¾“å‡ºç»“æœ
-    printf("æ’åºç»“æœ: ");
+    // Êä³ö½á¹û
+    printf("\noutput: ");  // »»ĞĞºóÊä³ö
     for(int i=0; i<5; i++) {
         printf("%d ", a[i]);
     }
