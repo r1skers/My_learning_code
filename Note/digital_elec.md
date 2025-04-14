@@ -44,4 +44,4 @@ In k-map<br>
 |                  |**或非门（NOR）**：\( (A + B)' = A' • B' \) |
 
 
-## 1
+## CMOS Inverter
