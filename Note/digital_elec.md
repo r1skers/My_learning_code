@@ -1,6 +1,6 @@
-TsingHua University--Digital Electronic Class From Wang Hong 
+# TsingHua University--Digital Electronic Class From Wang Hong 
 
-Grey Code <br>
+## Grey Code 
 格雷码(グレイコード),a kind of arranging method,one's binary code is different with last one's (only one number)
 In k-map<br>
 |       | **00** | **01** | **11** | **10** |
@@ -11,7 +11,7 @@ In k-map<br>
 | **10**| 1000   | 1001   | 1011   | 1010   |
 
 
-Veriable-Length Encoding<br>
+## Veriable-Length Encoding<br>
 哈夫曼编码(Huffman Coding,ハフマン符号),use'0' and '1'to describe high and low probable choices.And finally will get a tree.
 
 
@@ -34,7 +34,7 @@ Veriable-Length Encoding<br>
 | **分配律**       | \( A • (B + C) = A • B + A • C \)                             |
 
 
-De'Morgan's Law<br>
+## De'Morgan's Law<br>
 德摩根定理(ド・モルガンの法則)
 | **形式**         | **布尔表达式**                                                                 |
 |------------------|------------------------------------------------------------------------------|
@@ -42,3 +42,6 @@ De'Morgan's Law<br>
 |                  | \(A • B)' = A' + B' \)                     |
 | **逻辑门形式**   | **与非门（NAND）**：\( (A • B)' = A' + B'\) |
 |                  |**或非门（NOR）**：\( (A + B)' = A' • B' \) |
+
+
+## 1
