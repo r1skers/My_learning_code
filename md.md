@@ -23,3 +23,6 @@
 # 链接和图片
 [链接文字](https://example.com)
 ![图片描述](图片地址.jpg)
+
+## 高斯定理
+$$ \oint_{\partial V} \mathbf{E} \cdot d\mathbf{A} = \frac{Q_{\text{enc}}}{\varepsilon_0} $$
