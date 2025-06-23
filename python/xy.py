@@ -1,13 +1,18 @@
-from sympy import symbols, Eq, solve, Rational
+from sympy import symbols, Eq, solve, pi
 
-I1, v2, I3, I4,  E1, r1, r2, r3, r4,I = symbols('I1 v2 I3 I4  E1 r1 r2 r3 r4 I')
+x, y = symbols('x y')
 
-eq1 = Eq(I, I4 +I3)
-eq2 = Eq(I4*r4, (I3*r3)+v2)
-eq3 = Eq(v2/r2 , (I1*r1) + (I3*r3))
-eq4 = Eq(E1,(I1*r1)+v2)
+eq1 = Eq(200 * pi * x - 1/(200 * pi * y), -10)
+eq2 = Eq(400 * pi * x - 1/(400 * pi * y), 20)
 
+# 强制返回字典格式的解
+solution = solve((eq1, eq2), (x, y), dict=True)
 
-solution = solve([eq1, eq2, eq3, eq4], [I1, v2, I3, I4, I], dict=True)
-
-print(solution)
+if solution:
+    # 取第一个解（可能有多个解）
+    sol_dict = solution[0]
+    x_val = sol_dict[x].evalf()
+    y_val = sol_dict[y].evalf()
+    print(f"x = {x_val:.6f}, y = {y_val:.6f}")
+else:
+    print("无解")
