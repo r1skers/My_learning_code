@@ -1,0 +1,10 @@
+# C/C++ build output from MSVC compiler
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.dll
+
+# Build folder
+/build/
