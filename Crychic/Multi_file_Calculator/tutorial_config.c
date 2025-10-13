@@ -23,7 +23,83 @@ const char* app_owner = "Riskerss";
 
 // This is a "private" variable for this module. It cannot be seen outside tutorial_config.c.
 // 这是此模块的一个“私有”变量。在 tutorial_config.c 文件之外无法看到它。
+ /* This file demonstrates several concepts:
+ * 1. `static` variables and functions.
+ * 2. `extern` variables.
+ * 3. Conditional compilation with `#if`, `#elif`, `#else`, `#endif`.
+ * 4. Pre-defined macros from compiler flags (`-D`).
+ */
+
+#include <stdio.h>
+#include "tutorial_config.h"
+
+// --- `extern` and Global Variables ---
+
+// This is the definition of the global variable. It is accessible in other files that declare it `extern`.
+const char* MAINTAINER_NAME = "Riskerss";
+
+// --- `static` Variables and Functions ---
+
+// This is a `static` variable. Its scope is limited to this file (`tutorial_config.c`).
+// It cannot be accessed from other files, even with `extern`.
+// It also retains its value between function calls.
 static int module_init_count = 0;
+
+// This is a `static` function. It can only be called by other functions within this file.
+// It is hidden from other modules.
+static void print_build_mode() {
+    printf("  - Build Mode: ");
+
+    // --- Conditional Compilation (`#if`/`#elif`/`#else`) ---
+    // This block checks the `DEBUG` macro, which is set by the `-DDEBUG` compiler flag in the Makefile.
+#if DEBUG
+    // This code is only included if `DEBUG` is defined and non-zero.
+    printf("[DEBUG] (extra logs enabled)\n");
+#else
+    // This code is included if `DEBUG` is not defined.
+    printf("[RELEASE] (no extra logs)\n");
+#endif
+}
+
+// --- Public Function ---
+
+// This is a "public" function, accessible from any file that includes `tutorial_config.h`.
+void run_config_demo() {
+    printf("Running Configuration Demo...\n");
+
+    // Increment the static counter.
+    module_init_count++;
+    printf("  - This module has been initialized %d time(s).\n", module_init_count);
+
+    // Call the file-private static function.
+    print_build_mode();
+
+    // --- Using Macros from Compiler Flags ---
+
+    // The `VERSION` and `LOG_LEVEL` macros are defined directly by the compiler flags in the Makefile.
+    // This is a powerful way to inject configuration into the code at build time.
+#ifdef VERSION
+    printf("  - App Version: %s\n", VERSION);
+#endif
+
+    // We can use `#if` for integer comparisons with macros.
+    printf("  - Log Level: ");
+#if LOG_LEVEL == 3
+    printf("[DEBUG]\n");
+#elif LOG_LEVEL == 2
+    printf("[INFO]\n
+");
+#elif LOG_LEVEL == 1
+    printf("[ERROR]\n");
+#else
+    printf("[UNKNOWN]\n");
+#endif
+
+    // This is a compile-time assertion. If LOG_LEVEL is not defined, the build will fail.
+#ifndef LOG_LEVEL
+#error "LOG_LEVEL is not defined! Please define it in the Makefile."
+#endif
+}
 
 // This is a "private" helper function. It cannot be called from tutorial_main.c.
 // 这是一个“私有”的辅助函数。它不能从 tutorial_main.c 中调用。
