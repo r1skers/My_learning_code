@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="vending_machine_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="vending_machine_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="21.667 ns"></ZoomStartTime>
+      <ZoomEndTime time="151.667 ns"></ZoomEndTime>
+      <Cursor1Time time="85.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wvobject fp_name="/vending_machine_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vending_machine_tb/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vending_machine_tb/coin_in" type="logic">
+      <obj_property name="ElementShortName">coin_in</obj_property>
+      <obj_property name="ObjectShortName">coin_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vending_machine_tb/select" type="logic">
+      <obj_property name="ElementShortName">select</obj_property>
+      <obj_property name="ObjectShortName">select</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vending_machine_tb/dispense" type="logic">
+      <obj_property name="ElementShortName">dispense</obj_property>
+      <obj_property name="ObjectShortName">dispense</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vending_machine_tb/uut/current_state" type="array">
+      <obj_property name="ElementShortName">current_state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">current_state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vending_machine_tb/uut/next_state" type="array">
+      <obj_property name="ElementShortName">next_state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+   </wvobject>
+</wave_config>
