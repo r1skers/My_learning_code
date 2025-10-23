@@ -23,3 +23,33 @@ char* filter(char* input)
     filtered_string[j] = '\0'; // Null-terminate the filtered string
     return filtered_string;
 }
+
+
+Stack* createStack(unsigned capacity)
+{
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    if(!stack)
+    {
+        return NULL;
+    }
+    stack->capacity = capacity;
+    stack->top = -1;
+    stack->array = (int*)malloc(stack->capacity * sizeof(int));
+    if(!stack->array)
+    {
+        free(stack);
+        return NULL;
+    }
+    return stack;
+}
+
+void push(Stack* stack, char bracket)
+{
+    stack->array[++stack->top] = bracket;
+    printf("Pushed %c to stack\n", bracket);
+}
+
+bool check_brackets(Stack* stack,) 
+{
+    if
+}
