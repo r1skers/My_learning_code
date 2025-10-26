@@ -47,7 +47,7 @@ module uart_rx(
                     if(rxd == 0) begin // 再次确认是起始位
                         state <= STATE_DATA; // 确认成功，进入数据接收状态
                         clk_counter <= 0; // 重置时钟计数器
-                        bit_counter <= 0; // 从第0位开始接收
+                        bit_counter <= 0; // 从第0位开始接收   
                     end else begin
                         state <= STATE_IDLE; // 误判 (毛刺)，返回IDLE
                     end
