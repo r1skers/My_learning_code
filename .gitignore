@@ -29,3 +29,35 @@
 *.pb
 *.tcl
 .vscode/
+
+# Keil MDK-ARM Build Output / Temporary files
+*.o
+*.d
+*.crf
+*.dep
+*.lnp
+*.axf
+*.htm
+*.map
+*.lst
+*.sct
+*.iex
+*.uvguix.*
+*.scvd
+JLinkLog.txt
+*.uvoptx
+
+# Ignore Build folders (usually named Objects or Listings or Debug)
+MDK-ARM/DebugConfig/
+MDK-ARM/RTE/
+MDK-ARM/*/
+
+# Keep the project file (Do NOT ignore these)
+!*.uvprojx
+!*.uvoptx
+
+# CubeMX Temporary files
+.mxproject
+
+# Backup files
+*.bak
