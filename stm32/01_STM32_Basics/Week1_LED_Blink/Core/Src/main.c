@@ -104,7 +104,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+		// 1. ???????
+    // \r\n ????,Windows ???????????
+    printf("Hello! System Running: LED Toggle...\r\n");
+
+    // 2. ?? LED
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+
+    // 3. ?? 1 ?
+    HAL_Delay(1000);
   /* USER CODE END 3 */
 }
 
@@ -230,15 +238,7 @@ void Error_Handler(void)
   {
     /* USER CODE BEGIN 3 */
 
-    // 1. ???????
-    // \r\n ????,Windows ???????????
-    printf("Hello! System Running: LED Toggle...\r\n");
-
-    // 2. ?? LED
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-
-    // 3. ?? 1 ?
-    HAL_Delay(1000);
+    
 
     /* USER CODE END 3 */
   }
