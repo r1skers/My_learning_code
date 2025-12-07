@@ -58,7 +58,9 @@ MDK-ARM/*/
 
 # CubeMX Temporary files
 .mxproject
-
+.project
+.cproject
+.settings/
 # Backup files
 *.bak
 

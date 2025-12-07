@@ -14,7 +14,7 @@ set(SIZE arm-none-eabi-size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # project settings
-project(USART_LEDs_CLion C CXX ASM)
+project(UART_IDLE_Rx C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
@@ -62,6 +62,13 @@ add_link_options(-mcpu=cortex-m3 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+
+# --- 在下面加上这段 (这就是 MicroLib 的替代方案) ---
+target_link_options(${PROJECT_NAME}.elf PRIVATE
+        -specs=nano.specs
+        -specs=nosys.specs
+)
+
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
