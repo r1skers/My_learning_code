@@ -61,3 +61,27 @@ MDK-ARM/*/
 
 # Backup files
 *.bak
+
+# --- CLion & JetBrains IDE 产生的垃圾 ---
+.idea/
+cmake-build-*/
+*.iws
+out/
+
+# --- 编译产生的中间文件 (不仅是 CLion，任何 C 语言编译都会有) ---
+*.o
+*.obj
+*.lst
+*.map
+*.hex
+*.bin
+*.elf
+
+# --- 调试器产生的垃圾 ---
+*.jlink
+JLinkLog.txt
+*.svd
+
+# --- 假如你有 Python 脚本产生的缓存 ---
+__pycache__/
+*.py[cod]
