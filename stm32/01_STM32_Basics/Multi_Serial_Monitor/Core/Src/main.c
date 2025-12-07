@@ -28,7 +28,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define LENGTH 5
+#define LENGTH 64
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -44,13 +44,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t Rxbuff[LENGTH];
+uint8_t Rxbuff1[LENGTH];
+uint8_t Rxbuff2[LENGTH];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void USART_SendString(UART_HandleTypeDef *huart, char *str);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -88,9 +89,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UARTEx_ReceiveToIdle_IT(&huart1, Rxbuff, LENGTH);
-  printf("Interrupt on!!! Waiting...\r\n");
+  HAL_UARTEx_ReceiveToIdle_IT(&huart1, Rxbuff1, LENGTH);
+  HAL_UARTEx_ReceiveToIdle_IT(&huart2, Rxbuff2, LENGTH);
+  printf("准备出发咯");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -146,13 +149,31 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
-  if(huart -> Instance == USART1)
+  if(huart->Instance == USART1)
   {
-    printf("\r\nreceive interrupt finished:");
-    HAL_UART_Transmit_IT(&huart1, Rxbuff, Size);
-    HAL_UARTEx_ReceiveToIdle_IT(&huart1, Rxbuff, LENGTH);
+    USART_SendString(&huart1, "USART1 received data,send to USART2:\r\n");
+    HAL_UART_Transmit_IT(&huart2, Rxbuff1, Size);
+    USART_SendString(&huart1, "USART1 Sending finished\r\n");
+    HAL_UARTEx_ReceiveToIdle_IT (&huart1, Rxbuff1, LENGTH);
+  }
+  else if(huart->Instance == USART2)
+  {
+    USART_SendString(&huart2, "USART2 received data,send to USART1:\r\n");
+    HAL_UART_Transmit_IT(&huart1, Rxbuff2, Size);
+    USART_SendString(&huart2, "USART2 Sending finished\r\n");
+    HAL_UARTEx_ReceiveToIdle_IT(&huart2, Rxbuff2, LENGTH);
   }
 }
+
+void USART_SendString(UART_HandleTypeDef *huart, char *str)
+{
+  while (*str)
+  {
+    HAL_UART_Transmit(huart, (uint8_t *)str, 1, HAL_MAX_DELAY);
+    str++;
+  }
+}
+
 int _write(int file, char *ptr, int len)
 {
   HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
