@@ -18,10 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "usart.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -40,16 +43,14 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+uint8_t RxBuff[3]={0}; //initialized to zero
+uint8_t Rxcount=0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -90,7 +91,8 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)&RxBuff, 1);//Receive 1 byte in interrupt mode
+  printf("串口中断控制LED，命令：ON OFF\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -143,73 +145,55 @@ void SystemClock_Config(void)
   }
 }
 
-/**
-  * @brief USART1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART1_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART1_Init 0 */
-
-  /* USER CODE END USART1_Init 0 */
-
-  /* USER CODE BEGIN USART1_Init 1 */
-
-  /* USER CODE END USART1_Init 1 */
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART1_Init 2 */
-
-  /* USER CODE END USART1_Init 2 */
-
-}
-
-/**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_GPIO_Init(void)
-{
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  /* USER CODE BEGIN MX_GPIO_Init_1 */
-
-  /* USER CODE END MX_GPIO_Init_1 */
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin|LED_B_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pins : LED_R_Pin LED_G_Pin LED_B_Pin */
-  GPIO_InitStruct.Pin = LED_R_Pin|LED_G_Pin|LED_B_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* USER CODE BEGIN MX_GPIO_Init_2 */
-
-  /* USER CODE END MX_GPIO_Init_2 */
-}
-
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    Rxcount++;
+    if (Rxcount == 2)
+    {
+      if (strncmp((char*)RxBuff, "ON", 2) == 0)
+      {
+        printf("LED ON!\r\n");
+        HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin|LED_B_Pin, GPIO_PIN_RESET);
+        Rxcount = 0;
+        memset(RxBuff, 0, sizeof(RxBuff));
+      }
+      else if (strncmp((char*)RxBuff, "OF", 2) == 0)
+      {
+      }
+      else
+      {
+        printf("Error Command Reset\r\n"); // 可选：提示用户输入错了
+        Rxcount = 0;
+        memset(RxBuff, 0, sizeof(RxBuff));
+      }
+    }
+    else if (Rxcount == 3)
+    {
+      if (strncmp((char*)RxBuff, "OFF", 3) == 0)
+      {
+        printf("LED OFF!\r\n");
+        HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin|LED_B_Pin, GPIO_PIN_SET);
+        Rxcount = 0;
+        memset(RxBuff, 0, sizeof(RxBuff));
+      }
+      else
+      {
+        Rxcount = 0;
+        memset(RxBuff, 0, sizeof(RxBuff));
+      }
+    }
+    HAL_UART_Receive_IT(&huart1, (uint8_t *)&RxBuff[Rxcount], 1);
+  }
+}
 
+int _write(int file, char *data, int len)
+{
+  HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
+  return len;
+}
 /* USER CODE END 4 */
 
 /**
