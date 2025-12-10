@@ -3,8 +3,8 @@ import threading
 import time
 
 # --- 配置区域 ---
-PORT_A = 'COM6'  # 对应你的 UART1 (DAPLink)
-PORT_B = 'COM3'  # 对应你的 UART2 (USB-TTL)
+PORT_A = 'COM5'
+PORT_B = 'COM3'
 BAUD_RATE = 115200
 
 # 全局标志位，控制线程退出

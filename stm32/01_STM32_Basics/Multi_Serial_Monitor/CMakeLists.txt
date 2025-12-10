@@ -63,13 +63,6 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 
-# --- 在下面加上这段 (这就是 MicroLib 的替代方案) ---
-target_link_options(${PROJECT_NAME}.elf PRIVATE
-        -specs=nano.specs
-        -specs=nosys.specs
-)
-
-
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
 

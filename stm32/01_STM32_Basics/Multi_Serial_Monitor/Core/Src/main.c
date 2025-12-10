@@ -93,7 +93,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_UARTEx_ReceiveToIdle_IT(&huart1, Rxbuff1, LENGTH);
   HAL_UARTEx_ReceiveToIdle_IT(&huart2, Rxbuff2, LENGTH);
-  printf("准备出发咯");
+  printf("ready to go!\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -151,16 +151,16 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
   if(huart->Instance == USART1)
   {
-    USART_SendString(&huart1, "USART1 received data,send to USART2:\r\n");
+    USART_SendString(&huart1, "\r\nUSART1 received data,send to USART2:\r\n");
     HAL_UART_Transmit_IT(&huart2, Rxbuff1, Size);
-    USART_SendString(&huart1, "USART1 Sending finished\r\n");
+    USART_SendString(&huart1, "\r\nUSART1 Sending finished\r\n");
     HAL_UARTEx_ReceiveToIdle_IT (&huart1, Rxbuff1, LENGTH);
   }
   else if(huart->Instance == USART2)
   {
-    USART_SendString(&huart2, "USART2 received data,send to USART1:\r\n");
+    USART_SendString(&huart2, "\r\nUSART2 received data,send to USART1:\r\n");
     HAL_UART_Transmit_IT(&huart1, Rxbuff2, Size);
-    USART_SendString(&huart2, "USART2 Sending finished\r\n");
+    USART_SendString(&huart2, "\r\nUSART2 Sending finished\r\n");
     HAL_UARTEx_ReceiveToIdle_IT(&huart2, Rxbuff2, LENGTH);
   }
 }
