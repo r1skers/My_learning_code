@@ -1,9 +1,13 @@
+# 监测串口数据帧，计算丢包率和 CRC 错误率
+
+
+
 import serial
 import struct
 import time
 
 PORT = 'COM5'     # 修改为你的串口号
-BAUD = 115200     # 与 MCU 一致
+BAUD = 9600     # 与 MCU 一致
 FRAME_SIZE = 11   # 2 + 4 + 2 + 2 + 1
 HEADER = 0xAAAA
 

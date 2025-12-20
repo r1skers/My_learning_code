@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -49,6 +50,7 @@
 Frame_t tx_frame;
 uint32_t packet_counter = 0;
 volatile uint8_t u1_tx_busy = 0;
+uint32_t last_time = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -92,6 +94,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -100,25 +103,31 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if (u1_tx_busy == 0)
+    if (HAL_GetTick() - last_time >= 10)
     {
-      u1_tx_busy = 1;
-      tx_frame.header = PACKET_HEADER;
-      tx_frame.seq = packet_counter++;
-      tx_frame.val1 = (int16_t)(1000 * sin(packet_counter * 0.1f));
-      tx_frame.val2 = (int16_t)(packet_counter % 100);
-
-      uint8_t *p = (uint8_t*)&tx_frame;
-      uint8_t xor_sum = 0;
-      for (size_t i = 0; i < sizeof(Frame_t) - sizeof(tx_frame.checksum); i++)
+      last_time = HAL_GetTick();
+      if (u1_tx_busy == 0)
       {
-          xor_sum += p[i];
+        u1_tx_busy = 1;
+        HAL_ADC_Start(&hadc1);
+        HAL_ADC_PollForConversion(&hadc1, 1);
+        uint16_t adc_raw = HAL_ADC_GetValue(&hadc1);
+        tx_frame.header = PACKET_HEADER;
+        tx_frame.seq = packet_counter++;
+        tx_frame.val1 = (int16_t)adc_raw;
+        tx_frame.val2 = 0;
+
+        uint8_t *p = (uint8_t*)&tx_frame;
+        uint8_t xor_sum = 0;
+        for (int i = 0; i < sizeof(Frame_t) - 1; i++)
+        {
+          xor_sum ^= p[i];
+        }
+        tx_frame.checksum = xor_sum;
+        HAL_UART_Transmit_IT(&huart1, (uint8_t*)&tx_frame, sizeof(Frame_t));
+        HAL_GPIO_TogglePin(GPIOA, LED_R_Pin);
       }
-      tx_frame.checksum = xor_sum;
-      HAL_UART_Transmit_IT(&huart1, (uint8_t*)&tx_frame, sizeof(Frame_t));
-      HAL_GPIO_TogglePin(GPIOA, LED_R_Pin);
-      HAL_Delay(1);
-      // Simple checksum: sum of all bytes
+
     }
     /* USER CODE END WHILE */
 
@@ -135,6 +144,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
@@ -161,6 +171,12 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
