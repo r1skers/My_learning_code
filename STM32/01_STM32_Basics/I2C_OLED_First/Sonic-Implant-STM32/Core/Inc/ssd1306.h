@@ -1,9 +1,8 @@
 //
-// Created by r1skerss on 12/27/2025.
+// Minimal SSD1306 helpers (I2C, 0x3C)
 //
-
-#ifndef I2C_OLED_FIRST_SSD1306_H
-#define I2C_OLED_FIRST_SSD1306_H
+#ifndef SSD1306_H
+#define SSD1306_H
 
 #include "stm32f1xx_hal.h"
 
@@ -13,5 +12,4 @@ void SSD1306_Fill(uint8_t value);
 void SSD1306_DrawChar(uint8_t x, uint8_t page, char c);
 void SSD1306_DrawString(uint8_t x, uint8_t page, const char *s);
 
-
-#endif //I2C_OLED_FIRST_SSD1306_H
+#endif // SSD1306_H

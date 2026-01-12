@@ -103,42 +103,22 @@ void SSD1306_Init(void)
 
 void SSD1306_Clear(void)
 {
-    uint8_t data[128 + 1];
-    data[0] = 0x40;
+    SSD1306_Fill(0x00);
+}
 
-    for (int i = 1; i <= 128; i++)
-        data[i] = 0x00;
+void SSD1306_Fill(uint8_t value)
+{
+    uint8_t data[129];
+    data[0] = 0x40;
+    for (int i = 1; i < 129; i++)
+        data[i] = value;
 
     for (uint8_t page = 0; page < 8; page++)
     {
         SSD1306_WriteCommand(0xB0 + page);
         SSD1306_WriteCommand(0x00);
         SSD1306_WriteCommand(0x10);
-        HAL_I2C_Master_Transmit(&hi2c1, SSD1306_ADDR, data, sizeof(data), HAL_MAX_DELAY);
-    }
-}
-
-void SSD1306_Fill(uint8_t value)
-{
-    uint8_t data[129];
-    data[0] = 0x40;  // Control byte: data
-
-    for (int i = 1; i < 129; i++)
-        data[i] = value;
-
-    for (uint8_t page = 0; page < 8; page++)
-    {
-        SSD1306_WriteCommand(0xB0 + page); // Page address
-        SSD1306_WriteCommand(0x00);        // Lower column
-        SSD1306_WriteCommand(0x10);        // Higher column
-
-        HAL_I2C_Master_Transmit(
-            &hi2c1,
-            SSD1306_ADDR,
-            data,
-            129,
-            HAL_MAX_DELAY
-        );
+        HAL_I2C_Master_Transmit(&hi2c1, SSD1306_ADDR, data, 129, HAL_MAX_DELAY);
     }
 }
 
@@ -178,4 +158,3 @@ void SSD1306_DrawString(uint8_t x, uint8_t page, const char *s)
         x = (uint8_t)(x + 9);
     }
 }
-
