@@ -34,5 +34,7 @@ int main(){
         }
 
     }
+    vec3d pixelpos_80_200 = camera.ScreenToAbsolute(80, 200);
+    cout << "(80,200): " << pixelpos_80_200.x << " " << pixelpos_80_200.y << " " << pixelpos_80_200.z << endl;
     return 0;
 }
