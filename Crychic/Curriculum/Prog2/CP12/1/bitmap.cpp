@@ -1,6 +1,7 @@
 #include "bitmap.h"
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 
 CBitmap::CBitmap()
 {

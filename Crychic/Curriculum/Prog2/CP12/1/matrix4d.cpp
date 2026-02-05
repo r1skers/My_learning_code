@@ -1,5 +1,4 @@
 #include "matrix4d.h"
-#include "vec3d.h"
 #include <cmath>
 #include <algorithm>
 
@@ -43,10 +42,13 @@ matrix4d matrix4d::operator*(const matrix4d& op) const{
 }
 
 vec3d matrix4d::operator*(const vec3d& v) const{
-    double x = data[0][0]*v.x + data[0][1]*v.y + data[0][2]*v.z + data[0][3]*1.0;
-    double y = data[1][0]*v.x + data[1][1]*v.y + data[1][2]*v.z + data[1][3]*1.0;
-    double z = data[2][0]*v.x + data[2][1]*v.y + data[2][2]*v.z + data[2][3]*1.0;
-    return vec3d(x, y, z);
+    double vin[4]={v.x,v.y,v.z,1.0};
+    double vout[4]={0,0,0,0};
+
+    for(int i=0;i<4;i++)
+        for(int j=0;j<4;j++)
+            vout[i]+=data[i][j]*vin[j];
+    return vec3d(vout[0],vout[1],vout[2]);
 }
 
 bool matrix4d::SolveGaussJordan(const double b[4], double x_out[4]) const{

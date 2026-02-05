@@ -1,15 +1,15 @@
 #include "camera.h"
 #include <math.h>
 
-void CCamera::SetCamera(vec3d pos,vec3d target,double a,double ta,int screen_cx,int screen_cy)
+void CCamera::SetCamera(vec3d pos,vec3d target,double angle,double turnangle,int screen_cx,int screen_cy)
 {
     viewpoint=pos;
     direction=target-pos;
     direction.UnitVec();
     this->angle=angle;
     this->turnangle=turnangle;
-    this->screen_cx=screen_cx;
-    this->screen_cy=screen_cy;
+    screensize_cx=screen_cx;
+    screensize_cy=screen_cy;
     CalculationV();
 }
 
@@ -54,5 +54,5 @@ void CCamera::CalculationV()
 
 vec3d CCamera::ScreenToAbsolute(int x,int y)
 {
-    return V * vec3d((double)x,(double)y,0.0);
+    return V * vec3d((double)(x), (double)(y), 0.0);
 }

@@ -15,15 +15,15 @@ class CCamera
         vec3d GetDirection(){return direction;}
         double GetAngle(){return angle;}
         double GetTurnAngle(){return turnangle;}
-        void GetScreenSize(int &sx,int &sy){sx=screen_cx;sy=screen_cy;}
+        void GetScreenSize(int &sx,int &sy){sx=screensize_cx;sy=screensize_cy;}
 
     private:
         vec3d viewpoint;
         vec3d direction;
         double angle;
         double turnangle;
-        int screen_cx;
-        int screen_cy;
+        int screensize_cx;
+        int screensize_cy;
         matrix4d V;
         void CalculationV();
 };
